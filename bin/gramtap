@@ -1,4 +1,18 @@
 #!/usr/bin/env node
 
-// Gramtap CLI entry point
-console.log('Gramtap CLI - Coming soon!');
+const { Command } = require('commander');
+const program = new Command();
+
+program
+  .name('gramtap')
+  .description('A developer-friendly CLI for accessing Telegram from the terminal')
+  .version('1.0.0');
+
+program
+  .command('login')
+  .description('Login to Telegram')
+  .action(() => {
+    console.log('Login functionality coming soon!');
+  });
+
+program.parse();
