@@ -11,8 +11,16 @@
     "test:unit": "echo \"Unit tests not yet implemented\"",
     "test:integration": "echo \"Integration tests not yet implemented\""
   },
-  "keywords": ["telegram", "cli", "terminal", "messaging"],
+  "keywords": [
+    "telegram",
+    "cli",
+    "terminal",
+    "messaging"
+  ],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "commonjs",
+  "dependencies": {
+    "commander": "^14.0.0"
+  }
 }
