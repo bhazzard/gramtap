@@ -38,6 +38,9 @@ Thumbs.db
 .git/
 .gitignore
 
+# Claude settings
+.claude/
+
 # Logs
 logs
 *.log
