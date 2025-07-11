@@ -24,3 +24,17 @@ run:
     expectCode: 0
     outputContains:
       - 'Login to Telegram'
+      - '--setup'
+      - 'Show step-by-step guide for creating Telegram app and getting API'
+
+  loginSetupGuide:
+    command: 'node bin/gramtap login --setup'
+    expectCode: 0
+    outputContains:
+      - 'Telegram App Setup Guide'
+      - 'https://my.telegram.org'
+      - 'API ID'
+      - 'API Hash'
+      - 'Step-by-step instructions'
+      - 'API Development Tools'
+      - 'https://core.telegram.org/api/obtaining_api_id'

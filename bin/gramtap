@@ -11,8 +11,70 @@ program
 program
   .command('login')
   .description('Login to Telegram')
-  .action(() => {
-    console.log('Login functionality coming soon!');
+  .option('--setup', 'Show step-by-step guide for creating Telegram app and getting API credentials')
+  .action((options) => {
+    if (options.setup) {
+      showTelegramSetupGuide();
+    } else {
+      console.log('Login functionality coming soon!');
+    }
   });
+
+function showTelegramSetupGuide() {
+  console.log(`
+🚀 Telegram App Setup Guide
+============================
+
+Before using Gramtap, you need to create a Telegram app and get your API credentials.
+This is a one-time setup process that takes just a few minutes.
+
+📋 What you'll need:
+   • API ID (a number like 123456)
+   • API Hash (a string like 'abc123def456...')
+
+🔍 Why do I need these?
+   API ID and Hash are unique identifiers that allow your app to communicate
+   with Telegram's servers. They're like a username and password for your app.
+   Don't worry - they're safe to use and won't give anyone access to your account.
+
+📝 Step-by-step instructions:
+
+   1. 🌐 Go to https://my.telegram.org
+      
+   2. 🔐 Log in with your phone number (the same one you use for Telegram)
+      
+   3. 📱 Enter the verification code sent to your Telegram app
+      
+   4. 🛠️  Click "API Development Tools"
+      
+   5. 📋 Fill out the form to create a new app:
+      • App title: "Gramtap" (or any name you prefer)
+      • Short name: "gramtap" (or any short identifier)
+      • URL: Leave blank (not required)
+      • Platform: Choose "Desktop"
+      • Description: "CLI tool for Telegram" (optional)
+      
+   6. 📄 Click "Create application"
+      
+   7. 📝 Copy your credentials:
+      • API ID: The number shown (like 123456)
+      • API Hash: The long string shown (like 'abc123def456...')
+
+🔐 Keep these credentials safe:
+   • Don't share them publicly
+   • Store them securely (Gramtap will help you with this)
+   • You can regenerate them if needed from my.telegram.org
+
+📖 Official documentation:
+   • Telegram API docs: https://core.telegram.org/api/obtaining_api_id
+   • App registration: https://my.telegram.org
+
+✅ Next steps:
+   Once you have your API ID and Hash, run 'gramtap login' to authenticate
+   and start using Gramtap!
+
+Need help? Check the README or open an issue on GitHub.
+`);
+}
 
 program.parse();
