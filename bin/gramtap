@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 
 const { Command } = require('commander');
+const ConfigManager = require('../src/config');
+const CredentialPrompt = require('../src/prompt');
+const TelegramClient = require('../src/telegram');
 const program = new Command();
 
 program
@@ -12,11 +15,11 @@ program
   .command('login')
   .description('Login to Telegram')
   .option('--setup', 'Show step-by-step guide for creating Telegram app and getting API credentials')
-  .action((options) => {
+  .action(async (options) => {
     if (options.setup) {
       showTelegramSetupGuide();
     } else {
-      console.log('Login functionality coming soon!');
+      await loginToTelegram();
     }
   });
 
@@ -75,6 +78,78 @@ This is a one-time setup process that takes just a few minutes.
 
 Need help? Check the README or open an issue on GitHub.
 `);
+}
+
+async function loginToTelegram() {
+  const config = new ConfigManager();
+  const prompt = new CredentialPrompt();
+  
+  try {
+    // Check if credentials already exist
+    if (!config.hasCredentials()) {
+      console.log('🔧 First time setup required...\n');
+      
+      // Prompt for credentials
+      const credentials = await prompt.promptForCredentials();
+      
+      // Save credentials
+      const success = config.setCredentials(credentials.apiId, credentials.apiHash);
+      if (!success) {
+        prompt.showError(new Error('Failed to save credentials to config file'));
+        return;
+      }
+      
+      prompt.showSuccess(config.getConfigPath());
+      return;
+    }
+    
+    // Load existing credentials
+    const credentials = config.getCredentials();
+    console.log('📱 Connecting to Telegram...\n');
+    
+    // Initialize Telegram client
+    const client = new TelegramClient(credentials.apiId, credentials.apiHash, credentials.session);
+    
+    try {
+      await client.initialize();
+      
+      // Check if already logged in
+      if (client.isConnected()) {
+        console.log('✅ Already logged in to Telegram!');
+        
+        // Save session if it changed
+        const currentSession = client.getSession();
+        if (currentSession && currentSession !== credentials.session) {
+          config.updateSession(currentSession);
+        }
+        
+        await client.disconnect();
+        return;
+      }
+      
+      // Need to authenticate
+      const phoneNumber = await prompt.promptForPhoneNumber();
+      
+      // This is a simplified flow - actual Telegram authentication is more complex
+      console.log('\n🔐 Authentication flow would continue here...');
+      console.log('(Full authentication implementation coming in next phase)');
+      
+      await client.disconnect();
+      
+    } catch (error) {
+      console.error('❌ Telegram connection failed:', error.message);
+      
+      // If credentials are invalid, offer to reconfigure
+      if (error.message.includes('API_ID_INVALID') || error.message.includes('API_HASH_INVALID')) {
+        console.log('\n💡 Your API credentials may be invalid.');
+        console.log('Run "gramtap login --setup" for help creating new credentials.');
+      }
+    }
+    
+  } catch (error) {
+    console.error('❌ Login failed:', error.message);
+    process.exit(1);
+  }
 }
 
 program.parse();
