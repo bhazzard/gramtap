@@ -1,0 +1,18 @@
+{
+  "name": "gramtap",
+  "version": "1.0.0",
+  "description": "A developer-friendly CLI for accessing Telegram from the terminal",
+  "main": "src/index.js",
+  "bin": {
+    "gramtap": "bin/gramtap"
+  },
+  "scripts": {
+    "test": "npm run test:unit && npm run test:integration",
+    "test:unit": "echo \"Unit tests not yet implemented\"",
+    "test:integration": "echo \"Integration tests not yet implemented\""
+  },
+  "keywords": ["telegram", "cli", "terminal", "messaging"],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

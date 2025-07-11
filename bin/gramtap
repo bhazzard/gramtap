@@ -1,0 +1,4 @@
+#!/usr/bin/env node
+
+// Gramtap CLI entry point
+console.log('Gramtap CLI - Coming soon!');
