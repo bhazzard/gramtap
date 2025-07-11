@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "npm run test:unit && npm run test:integration",
-    "test:unit": "echo \"Unit tests not yet implemented\"",
+    "test:unit": "uvu test/unit",
     "test:integration": "echo \"Integration tests not yet implemented\""
   },
   "keywords": [
@@ -23,5 +23,8 @@
   "dependencies": {
     "commander": "^14.0.0",
     "telegram": "^2.26.22"
+  },
+  "devDependencies": {
+    "uvu": "^0.5.6"
   }
 }
