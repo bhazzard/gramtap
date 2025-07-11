@@ -1,0 +1,26 @@
+run:
+  helpFlag:
+    command: 'node bin/gramtap --help'
+    expectCode: 0
+    outputContains:
+      - 'A developer-friendly CLI for accessing Telegram from the terminal'
+      - 'Usage:'
+      - 'Options:'
+
+  shortHelpFlag:
+    command: 'node bin/gramtap -h'
+    expectCode: 0
+    outputContains:
+      - 'A developer-friendly CLI for accessing Telegram from the terminal'
+
+  versionFlag:
+    command: 'node bin/gramtap --version'
+    expectCode: 0
+    outputContains:
+      - '1.0.0'
+
+  loginCommandHelp:
+    command: 'node bin/gramtap login --help'
+    expectCode: 0
+    outputContains:
+      - 'Login to Telegram'

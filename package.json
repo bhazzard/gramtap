@@ -9,7 +9,7 @@
   "scripts": {
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "uvu test/unit",
-    "test:integration": "echo \"Integration tests not yet implemented\""
+    "test:integration": "npx judo test/integration/"
   },
   "keywords": [
     "telegram",
@@ -25,6 +25,7 @@
     "telegram": "^2.26.22"
   },
   "devDependencies": {
+    "@crshnburn/judo": "^0.0.17",
     "uvu": "^0.5.6"
   }
 }
